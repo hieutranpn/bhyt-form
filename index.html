@@ -3571,10 +3571,16 @@ const tinhSelect = document.getElementById('tinh');
     .then(text  => {
       overlay.style.display = 'none'; // tắt loading
       showModal("Gửi thành công! Cảm ơn bạn.");
+	form.reset();
+	tinhSelect.value = "Tỉnh Đắk Lắk";
+	updateXaPhuong();
     })
     .catch(error => {
       overlay.style.display = 'none';
       showModal("Gửi thành công! Cảm ơn bạn.");
+	form.reset();
+	tinhSelect.value = "Tỉnh Đắk Lắk";
+	updateXaPhuong();
     });
   });
 
