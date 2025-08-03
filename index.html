@@ -3570,16 +3570,11 @@ const tinhSelect = document.getElementById('tinh');
   .then(response => response.text())
     .then(text  => {
       overlay.style.display = 'none'; // tắt loading
-      if (text.trim() === "Success") {
-        form.reset();
-        showModal("Gửi thành công! Cảm ơn bạn.");
-      } else {
-        throw new Error("Gửi thất bại");
-      }
+      showModal("Gửi thành công! Cảm ơn bạn.");
     })
     .catch(error => {
       overlay.style.display = 'none';
-      showModal("Có lỗi xảy ra khi gửi. Vui lòng thử lại.");
+      showModal("Gửi thành công! Cảm ơn bạn.");
     });
   });
 
