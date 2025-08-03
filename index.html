@@ -2,13 +2,28 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>Thông tin làm thẻ BHYT Khối 1</title>
+  <title>Đăng ký BHYT - Trường TH Nguyễn Công Trứ</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
 	.form-label{color:red; font-weight:bold;}
 	.form-label.ccdds{font-weight:bold; color:black !important;}
 	h5{color:red; font-style:italic;}
 	.card-header{text-align:center;}
+	  body {
+	      background: #f8f9fa;
+	    }
+	    .container {
+	      max-width: 800px;
+	      margin-top: 40px;
+	      background: #fff;
+	      padding: 30px;
+	      border-radius: 12px;
+	      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+	    }
+	    h2 {
+	      text-align: center;
+	      margin-bottom: 25px;
+	    }
   </style>
 </head>
 <body class="bg-light">
@@ -29,24 +44,29 @@
 	  <h5>Lưu ý: Các trường màu đỏ có dấu * là bắt buộc nhập</h5>
     <div class="card-body">
 
+      <!-- Thông báo sau khi gửi -->
+    <div id="alert" class="alert d-none" role="alert"></div>
+
+    <form id="bhytForm">
       <div class="mb-3">
-        <label class="form-label">Họ và tên học sinh*:</label>
-        <input type="text" class="form-control" id="name" required>
+        <label for="name" class="form-label">Họ và tên học sinh *</label>
+        <input type="text" class="form-control" id="name" name="name" required>
       </div>
 
       <div class="mb-3">
-        <label class="form-label ccdds">CCCD của học sinh (nếu có)</label>
-        <input type="text" class="form-control" id="cccd">
+        <label for="cccd" class="form-label">CCCD học sinh (nếu có)</label>
+        <input type="text" class="form-control" id="cccd" name="cccd">
       </div>
 
       <div class="mb-3">
-        <label class="form-label">Ngày tháng năm sinh của học sinh*:</label>
-        <input type="date" class="form-control" id="dob" required>
+        <label for="dob" class="form-label">Ngày tháng năm sinh *</label>
+        <input type="date" class="form-control" id="dob" name="dob" required>
       </div>
 
       <div class="mb-3">
-        <label class="form-label">Lớp*:</label>
-        <select class="form-select" id="lop" required>
+        <label for="lop" class="form-label">Lớp *</label>
+        <select class="form-select" id="lop" name="lop" required>
+          <option value="">-- Chọn lớp --</option>
           <option>1A1</option>
           <option>1A2</option>
           <option>1A3</option>
@@ -56,24 +76,26 @@
         </select>
       </div>
 
-      <div class="mb-3">
-        <label class="form-label">Tỉnh/Thành phố*:</label>
-        <select class="form-select" id="tinh" onchange="updateXaPhuong()" required></select>
+      <div class="row mb-3">
+        <div class="col">
+          <label for="tinh" class="form-label">Tỉnh/Thành *</label>
+          <input type="text" class="form-control" id="tinh" name="tinh" value="Đắk Lắk" required>
+        </div>
+        <div class="col">
+          <label for="xa" class="form-label">Phường/Xã *</label>
+          <input type="text" class="form-control" id="xa" name="xa" required>
+        </div>
       </div>
 
       <div class="mb-3">
-        <label class="form-label">Phường/Xã*:</label>
-        <select class="form-select" id="xa" required></select>
+        <label for="diachi" class="form-label">Địa chỉ thường trú *</label>
+        <input type="text" class="form-control" id="diachi" name="diachi" required>
       </div>
 
       <div class="mb-3">
-        <label class="form-label">Địa chỉ thường trú*:</label>
-        <input type="text" class="form-control" id="diachi" required>
-      </div>
-
-      <div class="mb-3">
-        <label class="form-label">Nơi đăng ký khám chữa bệnh*:</label>
-        <select class="form-select" id="kcb" required>
+        <label for="kcb" class="form-label">Nơi đăng ký khám chữa bệnh *</label>
+        <select class="form-select" id="kcb" name="kcb" required>
+          <option value="">-- Chọn nơi KCB --</option>
           <option>BV Thiện Hạnh</option>
           <option>BV Thành phố BMT</option>
           <option>BV Y Dược TP Buôn Ma Thuột</option>
@@ -81,12 +103,8 @@
         </select>
       </div>
 
-      <div class="d-grid">
-        <button class="btn btn-success" onclick="submitForm()">Gửi thông tin</button>
-      </div>
-      <div class="mt-3">
-        <p id="status" class="fw-bold"></p>
-      </div>
+      <button type="submit" class="btn btn-primary w-100">Gửi thông tin</button>
+    </form>
 
     </div>
   </div>
@@ -3508,45 +3526,40 @@ const tinhSelect = document.getElementById('tinh');
   }
  tinhSelect.value = "Tỉnh Đắk Lắk";
   updateXaPhuong();
+const form = document.getElementById('bhytForm');
+    const alertBox = document.getElementById('alert');
 
-  function submitForm() {
-  const name = document.getElementById('name').value.trim();
-  const cccd = document.getElementById('cccd').value.trim();  // không bắt buộc
-  const dob = document.getElementById('dob').value;
-  const lop = document.getElementById('lop').value;
-  const tinh = document.getElementById('tinh').value;
-  const xa = document.getElementById('xa').value;
-  const diachi = document.getElementById('diachi').value.trim();
-  const kcb = document.getElementById('kcb').value;
+    form.addEventListener('submit', function (e) {
+      e.preventDefault(); // chặn reload
 
-  // Kiểm tra các trường bắt buộc
-  if (!name || !dob || !lop || !tinh || !xa || !diachi || !kcb) {
-    document.getElementById("status").textContent = "❌ Vui lòng điền đầy đủ các thông tin bắt buộc!";
-    document.getElementById("status").className = "text-danger fw-bold";
-    return;
-  }
+      const formData = new FormData(form);
 
-  const dataToSend = {
-    name, cccd, dob, lop, tinh, xa, diachi, kcb
-  };
+      fetch('https://script.google.com/macros/s/AKfycbzO0_xZiQHGl68cQDrbdbrry1HqApaNnrYBAoCrSq1N42Wtlyc1By7lnbt8iA2xayoU/exec', {
+        method: 'POST',
+        body: formData
+      })
+        .then(response => {
+          if (response.ok) {
+            showAlert('Gửi thành công!', 'success');
+            form.reset();
+          } else {
+            throw new Error('Gửi thất bại');
+          }
+        })
+        .catch(() => {
+          showAlert('Có lỗi xảy ra khi gửi dữ liệu. Vui lòng thử lại!', 'danger');
+        });
+    });
 
-  fetch("https://script.google.com/macros/s/AKfycbzO0_xZiQHGl68cQDrbdbrry1HqApaNnrYBAoCrSq1N42Wtlyc1By7lnbt8iA2xayoU/exec", {
-    method: "POST",
-    body: JSON.stringify(dataToSend),
-    headers: {
-      "Content-Type": "application/json"
-    }
-  })
-  .then(res => res.text())
-  .then(msg => {
-    document.getElementById("status").textContent = "✅ Gửi thành công!";
-    document.getElementById("status").className = "text-success fw-bold";
-  })
-  .catch(err => {
-    document.getElementById("status").textContent = "❌ Gửi thất bại!";
-    document.getElementById("status").className = "text-danger fw-bold";
-  });
-}
+    function showAlert(message, type) {
+      alertBox.textContent = message;
+      alertBox.className = `alert alert-${type}`;
+      alertBox.classList.remove('d-none');
+
+      setTimeout(() => {
+        alertBox.classList.add('d-none');
+      }, 5000);
+    } 
 </script>
 
 </body>
