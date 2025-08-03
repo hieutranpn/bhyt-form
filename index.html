@@ -88,11 +88,11 @@
       <div class="row mb-3">
         <div class="col">
           <label for="tinh" class="form-label">Tỉnh/Thành *</label>
-          <select class="form-select" id="tinh" onchange="updateXaPhuong()" required></select>
+          <select class="form-select" id="tinh" name="tinh" onchange="updateXaPhuong()" required></select>
         </div>
         <div class="col">
           <label for="xa" class="form-label">Phường/Xã *</label>
-          <select class="form-select" id="xa" required></select>
+          <select class="form-select" id="xa" name="xa" required></select>
         </div>
       </div>
 
@@ -3560,26 +3560,17 @@ const tinhSelect = document.getElementById('tinh');
     e.preventDefault();
     overlay.style.display = 'block'; // hiện loading
 
-    const formData = {
-      name: form.name.value,
-      cccd: form.cccd.value,
-      dob: form.dob.value,
-      lop: form.lop.value,
-      tinh: form.tinh.value,
-      xa: form.xa.value,
-      diachi: form.diachi.value,
-      kcb: form.kcb.value
-    };
-  fetch('https://script.google.com/macros/s/AKfycbx0sRE0YdJpI2fCJg-3oEwruh49kbdOMUezgj0iPRkujduU3vlVryn_ocdYPlvGRzw2/exec', {
+   
+
+    const formData = new FormData(form);
+  fetch('https://script.google.com/macros/s/AKfycbzIFPj_R327m8MlF83SYJDio-BMegF06Ipuw-LM1xVV_KEs5qnSip--zNN5UdpXcXHt/exec', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(formData)
+    body: formData
   })
-    .then(response => {
+  .then(response => response.text())
+    .then(text  => {
       overlay.style.display = 'none'; // tắt loading
-      if (response.ok) {
+      if (text.trim() === "Success") {
         form.reset();
         showModal("Gửi thành công! Cảm ơn bạn.");
       } else {
