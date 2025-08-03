@@ -79,11 +79,11 @@
       <div class="row mb-3">
         <div class="col">
           <label for="tinh" class="form-label">Tỉnh/Thành *</label>
-          <input type="text" class="form-control" id="tinh" name="tinh" value="Đắk Lắk" required>
+          <select class="form-select" id="tinh" onchange="updateXaPhuong()" required></select>
         </div>
         <div class="col">
           <label for="xa" class="form-label">Phường/Xã *</label>
-          <input type="text" class="form-control" id="xa" name="xa" required>
+          <select class="form-select" id="xa" required></select>
         </div>
       </div>
 
