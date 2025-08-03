@@ -3526,40 +3526,39 @@ const tinhSelect = document.getElementById('tinh');
   }
  tinhSelect.value = "Tỉnh Đắk Lắk";
   updateXaPhuong();
-const form = document.getElementById('bhytForm');
-    const alertBox = document.getElementById('alert');
+form.addEventListener('submit', function (e) {
+  e.preventDefault(); // chặn reload
 
-    form.addEventListener('submit', function (e) {
-      e.preventDefault(); // chặn reload
+  const formData = {
+    name: form.name.value,
+    cccd: form.cccd.value,
+    dob: form.dob.value,
+    lop: form.lop.value,
+    tinh: form.tinh.value,
+    xa: form.xa.value,
+    diachi: form.diachi.value,
+    kcb: form.kcb.value
+  };
 
-      const formData = new FormData(form);
-
-      fetch('https://script.google.com/macros/s/AKfycbzO0_xZiQHGl68cQDrbdbrry1HqApaNnrYBAoCrSq1N42Wtlyc1By7lnbt8iA2xayoU/exec', {
-        method: 'POST',
-        body: formData
-      })
-        .then(response => {
-          if (response.ok) {
-            showAlert('Gửi thành công!', 'success');
-            form.reset();
-          } else {
-            throw new Error('Gửi thất bại');
-          }
-        })
-        .catch(() => {
-          showAlert('Có lỗi xảy ra khi gửi dữ liệu. Vui lòng thử lại!', 'danger');
-        });
+  fetch('https://script.google.com/macros/s/AKfycbx0sRE0YdJpI2fCJg-3oEwruh49kbdOMUezgj0iPRkujduU3vlVryn_ocdYPlvGRzw2/exec', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(formData)
+  })
+    .then(response => {
+      if (response.ok) {
+        showAlert('Gửi thành công!', 'success');
+        form.reset();
+      } else {
+        throw new Error('Gửi thất bại');
+      }
+    })
+    .catch(() => {
+      showAlert('Có lỗi xảy ra khi gửi dữ liệu. Vui lòng thử lại!', 'danger');
     });
-
-    function showAlert(message, type) {
-      alertBox.textContent = message;
-      alertBox.className = `alert alert-${type}`;
-      alertBox.classList.remove('d-none');
-
-      setTimeout(() => {
-        alertBox.classList.add('d-none');
-      }, 5000);
-    } 
+});
 </script>
 
 </body>
