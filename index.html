@@ -2450,7 +2450,6 @@
     "Xã Krong"
   ],
   "Tỉnh Đắk Lắk": [
-    ""
     "Xã Hoà Phú",
     "Phường Buôn Ma Thuột",
     "Phường Tân An",
@@ -3566,6 +3565,12 @@ const tinhSelect = document.getElementById('tinh');
     const selectedTinh = tinhSelect.value;
     const xaList = data[selectedTinh] || [];
     xaSelect.innerHTML = '';
+	  // Thêm option rỗng mặc định
+	const defaultOption = document.createElement('option');
+	defaultOption.value = '';
+	defaultOption.textContent = '-- Chọn Phường/Xã mới --';
+	xaSelect.appendChild(defaultOption);
+	  
     xaList.forEach(xa => {
       const opt = document.createElement('option');
       opt.value = xa;
@@ -3573,8 +3578,9 @@ const tinhSelect = document.getElementById('tinh');
       xaSelect.appendChild(opt);
     });
   }
- tinhSelect.value = "Tỉnh Đắk Lắk";
+  tinhSelect.value = "Tỉnh Đắk Lắk";
   updateXaPhuong();
+  xaSelect.value = '';
   const form = document.getElementById('bhytForm');
   const overlay = document.getElementById('loadingOverlay');
   const modalMessage = document.getElementById('modalMessage');
@@ -3598,6 +3604,7 @@ const tinhSelect = document.getElementById('tinh');
 	form.reset();
 	tinhSelect.value = "Tỉnh Đắk Lắk";
 	updateXaPhuong();
+	xaSelect.value = '';
     })
     .catch(error => {
       overlay.style.display = 'none';
@@ -3605,6 +3612,7 @@ const tinhSelect = document.getElementById('tinh');
 	form.reset();
 	tinhSelect.value = "Tỉnh Đắk Lắk";
 	updateXaPhuong();
+	xaSelect.value = '';
     });
   });
 
