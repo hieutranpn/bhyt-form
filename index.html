@@ -86,7 +86,7 @@
           </div>
 
           <div class="mb-3">
-            <label for="cccd" class="form-label cccds">CCCD học sinh (nếu có)</label>
+            <label for="cccd" class="form-label cccds">CCCD học sinh*</label>
             <input type="text" class="form-control" id="cccd" name="cccd">
           </div>
 
@@ -107,7 +107,7 @@
               <option>1A6</option>
             </select>
           </div>
-
+			
           <div class="mb-3">
             <label for="diachi" class="form-label">Địa chỉ thường trú sau sáp nhập *</label>
             <input type="text" class="form-control" id="diachi" name="diachi" required>
@@ -134,7 +134,17 @@
               <option>BV Nhi Đức Tâm</option>
             </select>
           </div>
-
+		<div class="mb-3">
+            <label for="kcb" class="form-label">Đối tượng tham gia BHYT*</label>
+            <select class="form-select" id="doituong" name="doituong" required>
+              <option value="">-- Chọn đối tượng --</option>
+              <option>Con Công An</option>
+              <option>Con Bộ đội</option>
+              <option>Con thuộc hộ nghèo, cận nghèo</option>
+              <option>Khẩu ở vùng khó khăn được cấp</option>
+              <option>Không thuộc đối tượng nào</option>
+            </select>
+          </div>
           <button type="submit" class="btn btn-primary w-100">Gửi thông tin</button>
         </form>
 
@@ -3593,7 +3603,7 @@ const tinhSelect = document.getElementById('tinh');
    
 
     const formData = new FormData(form);
-  fetch('https://script.google.com/macros/s/AKfycbzIFPj_R327m8MlF83SYJDio-BMegF06Ipuw-LM1xVV_KEs5qnSip--zNN5UdpXcXHt/exec', {
+  fetch('https://script.google.com/macros/s/AKfycbyiBEXJovWvfCSuYKFFQCAF9MfTle9w4N8hcpTQgu7LGeJLizCBd-S82QAFbHMw0jfO/exec', {
     method: 'POST',
     body: formData
   })
