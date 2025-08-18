@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hacker Links</title>
+  <style>
+    body {
+      background: black;
+      color: #00ff00;
+      font-family: "Courier New", monospace;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
+
+    .terminal {
+      position: relative;
+      z-index: 1;
+      background: rgba(0, 0, 0, 0.85);
+      border: 2px solid #00ff00;
+      border-radius: 8px;
+      width: 80%;
+      max-width: 900px;
+      margin: 50px auto;
+      padding: 20px;
+      box-shadow: 0 0 20px #00ff00;
+    }
+
+    .terminal-header {
+      border-bottom: 1px solid #00ff00;
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 20px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .links a {
+      color: #00ff00;
+      text-decoration: none;
+      background: rgba(0, 255, 0, 0.1);
+      padding: 8px 12px;
+      border-radius: 5px;
+      transition: all 0.2s;
+    }
+
+    .links a:hover {
+      background: #00ff00;
+      color: black;
+      box-shadow: 0 0 10px #00ff00;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="matrix"></canvas>
+
+  <div class="terminal">
+    <div class="terminal-header">[ Hacker Terminal - Links ]</div>
+    <div class="links" id="links"></div>
+  </div>
+
+  <script>
+    // Hiệu ứng chữ rơi kiểu "hacker matrix"
+    const canvas = document.getElementById("matrix");
+    const ctx = canvas.getContext("2d");
+
+    canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth;
+
+    const letters = "01ABCDEFGHIJKLMNOPQRSTUVWXYZ#$%^&*".split("");
+    const fontSize = 14;
+    const columns = canvas.width / fontSize;
+    const drops = [];
+
+    for (let i = 0; i < columns; i++) drops[i] = 1;
+
+    function draw() {
+      ctx.fillStyle = "rgba(0,0,0,0.05)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = "#0F0";
+      ctx.font = fontSize + "px monospace";
+
+      for (let i = 0; i < drops.length; i++) {
+        const text = letters[Math.floor(Math.random() * letters.length)];
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975)
+          drops[i] = 0;
+
+        drops[i]++;
+      }
+    }
+
+    setInterval(draw, 40);
+
+    // Danh sách link có sẵn
+    const hackerLinks = [
+      { name: "Day 1", url: "https://drive.google.com/drive/folders/1cu2ej11vv-4Prn3piuSBQ7_g8hFASw2R" },
+      { name: "Day 2", url: "https://drive.google.com/drive/folders/1UchrrI_RIICqcyq6-2Z4UgqnN7hZ1aNA" },
+    ];
+
+    // Hiển thị links vào terminal
+    const linksContainer = document.getElementById("links");
+    hackerLinks.forEach(link => {
+      const a = document.createElement("a");
+      a.href = link.url;
+      a.target = "_blank";
+      a.textContent = `> ${link.name}`;
+      linksContainer.appendChild(a);
+    });
+  </script>
+</body>
+</html>
