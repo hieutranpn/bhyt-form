@@ -94,7 +94,14 @@
             <label for="dob" class="form-label">Ngày tháng năm sinh *</label>
             <input type="date" class="form-control" id="dob" name="dob" required>
           </div>
-
+		<div class="mb-3">
+            <label for="kcb" class="form-label">Giới tính *</label>
+            <select class="form-select" id="gioitinh" name="gioitinh" required>
+              <option value="">-- Chọn giới tính --</option>
+              <option>Nam</option>
+              <option>Nữ</option>
+            </select>
+          </div>
           <div class="mb-3">
             <label for="lop" class="form-label">Lớp *</label>
             <select class="form-select" id="lop" name="lop" required>
@@ -3603,7 +3610,7 @@ const tinhSelect = document.getElementById('tinh');
    
 
     const formData = new FormData(form);
-  fetch('https://script.google.com/macros/s/AKfycbyiBEXJovWvfCSuYKFFQCAF9MfTle9w4N8hcpTQgu7LGeJLizCBd-S82QAFbHMw0jfO/exec', {
+  fetch('https://script.google.com/macros/s/AKfycbz7ZVu7mXaZllWCDazzLXM6I3E3Dl2_zRnhR91x1Ib4dr7AoxH2CEPecCF9LdZKUvIK/exec', {
     method: 'POST',
     body: formData
   })
