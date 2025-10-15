@@ -82,7 +82,12 @@
           <div class="mb-3">
             <label for="name" class="form-label">Họ và tên học sinh *</label>
             <input type="text" class="form-control" id="name" name="name" required>
-          </div>			
+          </div>	
+			
+          <div class="mb-3">
+            <label for="name" class="form-label">CCCD của họcc sinh *</label>
+            <input type="text" class="form-control" id="cccd" name="cccd" required>
+          </div>	
           <div class="mb-3">
             <label for="name" class="form-label ccdds">Mã thẻ BHYT</label>
             <input type="text" class="form-control" id="mathebhyt" name="mathebhyt">
@@ -3625,7 +3630,7 @@ const tinhSelect = document.getElementById('tinh');
    
 
     const formData = new FormData(form);
-  fetch('https://script.google.com/macros/s/AKfycbyCIc4qZqEzTfjLXkOKb6wPFH8TUSNHHAmzIQmPuHlAUzJ3rmNc6i5lmlnD0l7EVdot/exec', {
+  fetch('https://script.google.com/macros/s/AKfycbyBVPfwNBrhnZDDNoCONP-UDy7czIte8XfmFnEtMLl9y65wru4BzV4uSS-dG-h33VJ4/exec', {
     method: 'POST',
     body: formData
   })
